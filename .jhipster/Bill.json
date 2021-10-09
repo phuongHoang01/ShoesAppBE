@@ -1,0 +1,31 @@
+{
+  "fields": [
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "totalPrice",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipName": "product",
+      "otherEntityName": "product",
+      "relationshipType": "many-to-many",
+      "otherEntityField": "name",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "bill"
+    }
+  ],
+  "service": "serviceClass",
+  "dto": "mapstruct",
+  "jpaMetamodelFiltering": false,
+  "readOnly": false,
+  "pagination": "pagination",
+  "name": "Bill",
+  "changelogDate": "20211003033742"
+}

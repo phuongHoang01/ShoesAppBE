@@ -652,7 +652,7 @@
                         <url>jdbc:mysql://localhost:3306/ShoesAppBE</url>
                         <defaultSchemaName>ShoesAppBE</defaultSchemaName>
                         <username>root</username>
-                        <password></password>
+                        <password>password</password>
                         <referenceUrl>hibernate:spring:com.shoesapp.domain?dialect=org.hibernate.dialect.MySQL8Dialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
                         <verbose>true</verbose>
                         <logging>debug</logging>
