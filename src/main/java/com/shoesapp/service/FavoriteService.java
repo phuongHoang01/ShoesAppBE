@@ -1,7 +1,10 @@
 package com.shoesapp.service;
 
 import com.shoesapp.domain.Favorite;
+import com.shoesapp.domain.User;
 import com.shoesapp.repository.FavoriteRepository;
+import com.shoesapp.repository.UserRepository;
+import com.shoesapp.security.SecurityUtils;
 import com.shoesapp.service.dto.FavoriteDTO;
 import com.shoesapp.service.mapper.FavoriteMapper;
 
@@ -13,6 +16,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.naming.AuthenticationException;
 
 /**
  * Service Implementation for managing {@link Favorite}.
@@ -27,9 +32,12 @@ public class FavoriteService {
 
     private final FavoriteMapper favoriteMapper;
 
-    public FavoriteService(FavoriteRepository favoriteRepository, FavoriteMapper favoriteMapper) {
+    private final UserRepository userRepository;
+
+    public FavoriteService(FavoriteRepository favoriteRepository, FavoriteMapper favoriteMapper, UserRepository userRepository) {
         this.favoriteRepository = favoriteRepository;
         this.favoriteMapper = favoriteMapper;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -97,5 +105,14 @@ public class FavoriteService {
     public void delete(Long id) {
         log.debug("Request to delete Favorite : {}", id);
         favoriteRepository.deleteById(id);
+    }
+
+    public void unlike(Long productId) throws AuthenticationException {
+        Optional<User> loggedUser = SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneByLogin);
+
+        if (!loggedUser.isPresent()) {
+            throw new AuthenticationException("Chưa đăng nhập");
+        }
+        favoriteRepository.deleteByProductIdAndUserId(productId, loggedUser.get().getId());
     }
 }

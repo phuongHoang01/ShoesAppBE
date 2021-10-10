@@ -23,6 +23,8 @@ import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
+import javax.naming.AuthenticationException;
+
 /**
  * REST controller for managing {@link com.shoesapp.domain.Favorite}.
  */
@@ -173,6 +175,16 @@ public class FavoriteResource {
     public ResponseEntity<Void> deleteFavorite(@PathVariable Long id) {
         log.debug("REST request to delete Favorite : {}", id);
         favoriteService.delete(id);
+        return ResponseEntity
+            .noContent()
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
+            .build();
+    }
+
+    @DeleteMapping("/moblie/favorites/{id}")
+    public ResponseEntity<Void> unlike(@PathVariable Long id) throws AuthenticationException {
+        log.debug("REST request to delete Favorite : {}", id);
+        favoriteService.unlike(id);
         return ResponseEntity
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))

@@ -127,6 +127,16 @@ public class ProductService {
     }
 
     public List<ProductDTO> findAllByCategoryId(Long categoryId) {
-        return productRepository.findAllByCategoryId(categoryId).stream().map(productMapper::toDto).collect(Collectors.toList());
+        List<Favorite> favorites = favoriteRepository.findByUserIsCurrentUser();
+        return productRepository.findAllByCategoryId(categoryId).stream()
+            .map(productMapper::toDto)
+            .map(product -> {
+            if (favorites.stream()
+                .filter(favorite -> favorite.getProduct() != null)
+                .anyMatch(favorite -> favorite.getProduct().getId() == product.getId())) {
+                product.setFavorite(true);
+            }
+            return product;
+        }).collect(Collectors.toList());
     }
 }

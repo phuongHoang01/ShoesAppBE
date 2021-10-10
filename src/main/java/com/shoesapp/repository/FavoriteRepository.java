@@ -13,4 +13,6 @@ import org.springframework.stereotype.Repository;
 public interface FavoriteRepository extends JpaRepository<Favorite, Long> {
     @Query("select favorite from Favorite favorite where favorite.user.login = ?#{principal.username}")
     List<Favorite> findByUserIsCurrentUser();
+
+    void deleteByProductIdAndUserId(Long productId, Long userId);
 }
