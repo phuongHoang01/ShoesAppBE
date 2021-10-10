@@ -1,6 +1,8 @@
 package com.shoesapp.service;
 
+import com.shoesapp.domain.Favorite;
 import com.shoesapp.domain.Product;
+import com.shoesapp.repository.FavoriteRepository;
 import com.shoesapp.repository.ProductRepository;
 import com.shoesapp.service.dto.ProductDTO;
 import com.shoesapp.service.mapper.ProductMapper;
@@ -29,9 +31,12 @@ public class ProductService {
 
     private final ProductMapper productMapper;
 
-    public ProductService(ProductRepository productRepository, ProductMapper productMapper) {
+    private final FavoriteRepository favoriteRepository;
+
+    public ProductService(ProductRepository productRepository, ProductMapper productMapper, FavoriteRepository favoriteRepository) {
         this.productRepository = productRepository;
         this.productMapper = productMapper;
+        this.favoriteRepository = favoriteRepository;
     }
 
     /**
@@ -76,7 +81,18 @@ public class ProductService {
     @Transactional(readOnly = true)
     public Page<ProductDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Products");
-        return productRepository.findAll(pageable).map(productMapper::toDto);
+        List<Favorite> favorites = favoriteRepository.findByUserIsCurrentUser();
+
+        return productRepository.findAll(pageable)
+            .map(productMapper::toDto)
+            .map(product -> {
+                if (favorites.stream()
+                    .filter(favorite -> favorite.getProduct() != null)
+                    .anyMatch(favorite -> favorite.getProduct().getId() == product.getId())) {
+                    product.setFavorite(true);
+                }
+                return product;
+        });
     }
 
     /**

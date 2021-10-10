@@ -4,6 +4,8 @@ import com.shoesapp.domain.Favorite;
 import com.shoesapp.repository.FavoriteRepository;
 import com.shoesapp.service.dto.FavoriteDTO;
 import com.shoesapp.service.mapper.FavoriteMapper;
+
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

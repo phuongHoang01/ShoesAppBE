@@ -36,6 +36,8 @@ public class ProductDTO implements Serializable {
 
     private Set<SizeDTO> sizes = new HashSet<>();
 
+    private boolean isFavorite = false;
+
     public Long getId() {
         return id;
     }
@@ -114,6 +116,14 @@ public class ProductDTO implements Serializable {
 
     public void setSizes(Set<SizeDTO> sizes) {
         this.sizes = sizes;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 
     @Override

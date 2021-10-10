@@ -25,7 +25,7 @@ public class Favorite implements Serializable {
     @ManyToOne
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value = { "category", "sizes" }, allowSetters = true)
     private Product product;
 
