@@ -2,9 +2,7 @@ package com.shoesapp.service.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * A DTO for the {@link com.shoesapp.domain.Favorite} entity.
@@ -17,7 +15,7 @@ public class FavoriteDTO implements Serializable {
 
     private UserDTO user;
 
-    private Set<ProductDTO> products = new HashSet<>();
+    private ProductDTO product;
 
     public Long getId() {
         return id;
@@ -43,12 +41,12 @@ public class FavoriteDTO implements Serializable {
         this.user = user;
     }
 
-    public Set<ProductDTO> getProducts() {
-        return products;
+    public ProductDTO getProduct() {
+        return product;
     }
 
-    public void setProducts(Set<ProductDTO> products) {
-        this.products = products;
+    public void setProduct(ProductDTO product) {
+        this.product = product;
     }
 
     @Override
@@ -79,7 +77,7 @@ public class FavoriteDTO implements Serializable {
             "id=" + getId() +
             ", createdDate='" + getCreatedDate() + "'" +
             ", user=" + getUser() +
-            ", products=" + getProducts() +
+            ", product=" + getProduct() +
             "}";
     }
 }

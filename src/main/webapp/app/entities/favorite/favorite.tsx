@@ -107,6 +107,9 @@ export const Favorite = (props: RouteComponentProps<{ url: string }>) => {
                 <th>
                   User <FontAwesomeIcon icon="sort" />
                 </th>
+                <th>
+                  Product <FontAwesomeIcon icon="sort" />
+                </th>
                 <th />
               </tr>
             </thead>
@@ -122,6 +125,7 @@ export const Favorite = (props: RouteComponentProps<{ url: string }>) => {
                     {favorite.createdDate ? <TextFormat type="date" value={favorite.createdDate} format={APP_LOCAL_DATE_FORMAT} /> : null}
                   </td>
                   <td>{favorite.user ? favorite.user.login : ''}</td>
+                  <td>{favorite.product ? <Link to={`product/${favorite.product.id}`}>{favorite.product.id}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${favorite.id}`} color="info" size="sm" data-cy="entityDetailsButton">

@@ -36,16 +36,7 @@ export const FavoriteDetail = (props: RouteComponentProps<{ id: string }>) => {
           <dt>User</dt>
           <dd>{favoriteEntity.user ? favoriteEntity.user.login : ''}</dd>
           <dt>Product</dt>
-          <dd>
-            {favoriteEntity.products
-              ? favoriteEntity.products.map((val, i) => (
-                  <span key={val.id}>
-                    <a>{val.name}</a>
-                    {favoriteEntity.products && i === favoriteEntity.products.length - 1 ? '' : ', '}
-                  </span>
-                ))
-              : null}
-          </dd>
+          <dd>{favoriteEntity.product ? favoriteEntity.product.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/favorite" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

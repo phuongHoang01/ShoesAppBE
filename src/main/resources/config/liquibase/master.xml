@@ -23,5 +23,6 @@
     <include file="config/liquibase/changelog/20211003033742_added_entity_constraints_Bill.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211009074440_added_entity_Size.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211009064341_changelog.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211010042021_changelog.xml" relativeToChangelogFile="false"/>
 
 </databaseChangeLog>

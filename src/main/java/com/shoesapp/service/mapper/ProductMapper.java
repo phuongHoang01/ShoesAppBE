@@ -14,6 +14,11 @@ public interface ProductMapper extends EntityMapper<ProductDTO, Product> {
     @Mapping(target = "sizes", source = "sizes", qualifiedByName = "nameSet")
     ProductDTO toDto(Product s);
 
+    @Named("id")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    ProductDTO toDtoId(Product product);
+
     @Mapping(target = "removeSize", ignore = true)
     Product toEntity(ProductDTO productDTO);
 

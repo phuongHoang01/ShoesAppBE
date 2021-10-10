@@ -3,8 +3,6 @@ package com.shoesapp.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -27,14 +25,9 @@ public class Favorite implements Serializable {
     @ManyToOne
     private User user;
 
-    @ManyToMany
-    @JoinTable(
-        name = "rel_favorite__product",
-        joinColumns = @JoinColumn(name = "favorite_id"),
-        inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
+    @ManyToOne
     @JsonIgnoreProperties(value = { "category", "sizes" }, allowSetters = true)
-    private Set<Product> products = new HashSet<>();
+    private Product product;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -77,26 +70,16 @@ public class Favorite implements Serializable {
         return this;
     }
 
-    public Set<Product> getProducts() {
-        return this.products;
+    public Product getProduct() {
+        return this.product;
     }
 
-    public void setProducts(Set<Product> products) {
-        this.products = products;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
-    public Favorite products(Set<Product> products) {
-        this.setProducts(products);
-        return this;
-    }
-
-    public Favorite addProduct(Product product) {
-        this.products.add(product);
-        return this;
-    }
-
-    public Favorite removeProduct(Product product) {
-        this.products.remove(product);
+    public Favorite product(Product product) {
+        this.setProduct(product);
         return this;
     }
 

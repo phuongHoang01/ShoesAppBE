@@ -51,8 +51,8 @@ export const FavoriteUpdate = (props: RouteComponentProps<{ id: string }>) => {
     const entity = {
       ...favoriteEntity,
       ...values,
-      products: mapIdList(values.products),
       user: users.find(it => it.id.toString() === values.userId.toString()),
+      product: products.find(it => it.id.toString() === values.productId.toString()),
     };
 
     if (isNew) {
@@ -68,7 +68,7 @@ export const FavoriteUpdate = (props: RouteComponentProps<{ id: string }>) => {
       : {
           ...favoriteEntity,
           userId: favoriteEntity?.user?.id,
-          products: favoriteEntity?.products?.map(e => e.id.toString()),
+          productId: favoriteEntity?.product?.id,
         };
 
   return (
@@ -98,12 +98,12 @@ export const FavoriteUpdate = (props: RouteComponentProps<{ id: string }>) => {
                     ))
                   : null}
               </ValidatedField>
-              <ValidatedField label="Product" id="favorite-product" data-cy="product" type="select" multiple name="products">
+              <ValidatedField id="favorite-product" name="productId" data-cy="product" label="Product" type="select">
                 <option value="" key="0" />
                 {products
                   ? products.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.name}
+                        {otherEntity.id}
                       </option>
                     ))
                   : null}

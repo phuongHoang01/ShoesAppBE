@@ -140,21 +140,12 @@ public class FavoriteResource {
      * {@code GET  /favorites} : get all the favorites.
      *
      * @param pageable the pagination information.
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of favorites in body.
      */
     @GetMapping("/favorites")
-    public ResponseEntity<List<FavoriteDTO>> getAllFavorites(
-        Pageable pageable,
-        @RequestParam(required = false, defaultValue = "false") boolean eagerload
-    ) {
+    public ResponseEntity<List<FavoriteDTO>> getAllFavorites(Pageable pageable) {
         log.debug("REST request to get a page of Favorites");
-        Page<FavoriteDTO> page;
-        if (eagerload) {
-            page = favoriteService.findAllWithEagerRelationships(pageable);
-        } else {
-            page = favoriteService.findAll(pageable);
-        }
+        Page<FavoriteDTO> page = favoriteService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

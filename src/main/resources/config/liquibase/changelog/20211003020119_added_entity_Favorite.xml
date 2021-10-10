@@ -20,22 +20,11 @@
             <column name="user_id" type="bigint">
                 <constraints nullable="true" />
             </column>
+            <column name="product_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
-    </changeSet>
-
-    <changeSet id="20211003020119-1-relations" author="jhipster">
-
-        <createTable tableName="rel_favorite__product">
-            <column name="product_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="favorite_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="favorite_id, product_id" tableName="rel_favorite__product"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->

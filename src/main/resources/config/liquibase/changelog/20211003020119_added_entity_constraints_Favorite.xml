@@ -14,15 +14,9 @@
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
 
-        <addForeignKeyConstraint baseColumnNames="favorite_id"
-                                 baseTableName="rel_favorite__product"
-                                 constraintName="fk_rel_favorite__product__favorite_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="favorite"/>
-
         <addForeignKeyConstraint baseColumnNames="product_id"
-                                 baseTableName="rel_favorite__product"
-                                 constraintName="fk_rel_favorite__product__product_id"
+                                 baseTableName="favorite"
+                                 constraintName="fk_favorite__product_id"
                                  referencedColumnNames="id"
                                  referencedTableName="product"/>
     </changeSet>

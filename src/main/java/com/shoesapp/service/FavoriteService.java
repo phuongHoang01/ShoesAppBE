@@ -76,15 +76,6 @@ public class FavoriteService {
     }
 
     /**
-     * Get all the favorites with eager load of many-to-many relationships.
-     *
-     * @return the list of entities.
-     */
-    public Page<FavoriteDTO> findAllWithEagerRelationships(Pageable pageable) {
-        return favoriteRepository.findAllWithEagerRelationships(pageable).map(favoriteMapper::toDto);
-    }
-
-    /**
      * Get one favorite by id.
      *
      * @param id the id of the entity.
@@ -93,7 +84,7 @@ public class FavoriteService {
     @Transactional(readOnly = true)
     public Optional<FavoriteDTO> findOne(Long id) {
         log.debug("Request to get Favorite : {}", id);
-        return favoriteRepository.findOneWithEagerRelationships(id).map(favoriteMapper::toDto);
+        return favoriteRepository.findById(id).map(favoriteMapper::toDto);
     }
 
     /**

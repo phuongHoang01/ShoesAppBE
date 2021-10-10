@@ -6,7 +6,7 @@ export interface IFavorite {
   id?: number;
   createdDate?: string | null;
   user?: IUser | null;
-  products?: IProduct[] | null;
+  product?: IProduct | null;
 }
 
 export const defaultValue: Readonly<IFavorite> = {};

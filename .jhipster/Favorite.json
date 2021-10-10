@@ -17,10 +17,8 @@
     {
       "relationshipName": "product",
       "otherEntityName": "product",
-      "relationshipType": "many-to-many",
-      "otherEntityField": "name",
-      "ownerSide": true,
-      "otherEntityRelationshipName": "favorite"
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id"
     }
   ],
   "service": "serviceClass",
