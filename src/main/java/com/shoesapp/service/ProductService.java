@@ -4,7 +4,11 @@ import com.shoesapp.domain.Product;
 import com.shoesapp.repository.ProductRepository;
 import com.shoesapp.service.dto.ProductDTO;
 import com.shoesapp.service.mapper.ProductMapper;
+
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -104,5 +108,9 @@ public class ProductService {
     public void delete(Long id) {
         log.debug("Request to delete Product : {}", id);
         productRepository.deleteById(id);
+    }
+
+    public List<ProductDTO> findAllByCategoryId(Long categoryId) {
+        return productRepository.findAllByCategoryId(categoryId).stream().map(productMapper::toDto).collect(Collectors.toList());
     }
 }
