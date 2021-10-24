@@ -19,6 +19,14 @@
       "otherEntityField": "name",
       "ownerSide": true,
       "otherEntityRelationshipName": "bill"
+    },
+    {
+      "relationshipName": "user",
+      "otherEntityName": "user",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "login",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "bill"
     }
   ],
   "service": "serviceClass",

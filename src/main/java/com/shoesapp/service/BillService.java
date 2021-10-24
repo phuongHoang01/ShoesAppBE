@@ -1,13 +1,16 @@
 package com.shoesapp.service;
 
 import com.shoesapp.domain.Bill;
+import com.shoesapp.domain.User;
 import com.shoesapp.repository.BillRepository;
 import com.shoesapp.service.dto.BillDTO;
 import com.shoesapp.service.mapper.BillMapper;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -28,9 +31,12 @@ public class BillService {
 
     private final BillMapper billMapper;
 
-    public BillService(BillRepository billRepository, BillMapper billMapper) {
+    private final UserService userService;
+
+    public BillService(BillRepository billRepository, BillMapper billMapper, UserService userService) {
         this.billRepository = billRepository;
         this.billMapper = billMapper;
+        this.userService = userService;
     }
 
     /**
@@ -42,9 +48,7 @@ public class BillService {
     public BillDTO save(BillDTO billDTO) {
         log.debug("Request to save Bill : {}", billDTO);
         Bill bill = billMapper.toEntity(billDTO);
-        if (bill.getCreatedDate() == null) {
-            bill.createdDate(LocalDate.now());
-        }
+        bill.setCreatedDate(LocalDate.now());
         bill = billRepository.save(bill);
         return billMapper.toDto(bill);
     }
@@ -110,5 +114,19 @@ public class BillService {
     public void delete(Long id) {
         log.debug("Request to delete Bill : {}", id);
         billRepository.deleteById(id);
+    }
+
+    public List<BillDTO> getBillsOfLoggedUser() {
+        return billRepository.findByUserIsCurrentUser().stream().map(bill -> billMapper.toDto(bill)).collect(Collectors.toList());
+    }
+
+    public BillDTO saveByLoggedUser(BillDTO billDTO) {
+        Optional<User> loggedUser = userService.getUserWithAuthorities();
+        log.debug("Request to save Bill : {}", billDTO);
+        Bill bill = billMapper.toEntity(billDTO);
+        bill.setCreatedDate(LocalDate.now());
+        bill.setUser(loggedUser.get());
+        bill = billRepository.save(bill);
+        return billMapper.toDto(bill);
     }
 }

@@ -24,5 +24,6 @@
     <include file="config/liquibase/changelog/20211009074440_added_entity_Size.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211009064341_changelog.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211010042021_changelog.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211024030009_changelog.xml" relativeToChangelogFile="false"/>
 
 </databaseChangeLog>

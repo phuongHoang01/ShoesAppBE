@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IProduct } from 'app/shared/model/product.model';
 import { getEntities as getProducts } from 'app/entities/product/product.reducer';
+import { IUser } from 'app/shared/model/user.model';
+import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './bill.reducer';
 import { IBill } from 'app/shared/model/bill.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -18,6 +20,7 @@ export const BillUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
   const products = useAppSelector(state => state.product.entities);
+  const users = useAppSelector(state => state.userManagement.users);
   const billEntity = useAppSelector(state => state.bill.entity);
   const loading = useAppSelector(state => state.bill.loading);
   const updating = useAppSelector(state => state.bill.updating);
@@ -35,6 +38,7 @@ export const BillUpdate = (props: RouteComponentProps<{ id: string }>) => {
     }
 
     dispatch(getProducts({}));
+    dispatch(getUsers({}));
   }, []);
 
   useEffect(() => {
@@ -48,6 +52,7 @@ export const BillUpdate = (props: RouteComponentProps<{ id: string }>) => {
       ...billEntity,
       ...values,
       products: mapIdList(values.products),
+      user: users.find(it => it.id.toString() === values.userId.toString()),
     };
 
     if (isNew) {
@@ -63,6 +68,7 @@ export const BillUpdate = (props: RouteComponentProps<{ id: string }>) => {
       : {
           ...billEntity,
           products: billEntity?.products?.map(e => e.id.toString()),
+          userId: billEntity?.user?.id,
         };
 
   return (
@@ -108,6 +114,16 @@ export const BillUpdate = (props: RouteComponentProps<{ id: string }>) => {
                   ? products.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.name}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <ValidatedField id="bill-user" name="userId" data-cy="user" label="User" type="select">
+                <option value="" key="0" />
+                {users
+                  ? users.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.login}
                       </option>
                     ))
                   : null}

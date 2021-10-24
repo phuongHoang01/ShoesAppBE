@@ -1,6 +1,8 @@
 package com.shoesapp.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.data.annotation.CreatedDate;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -38,6 +40,9 @@ public class Bill implements Serializable {
     )
     @JsonIgnoreProperties(value = { "category", "sizes" }, allowSetters = true)
     private Set<Product> products = new HashSet<>();
+
+    @ManyToOne
+    private User user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -100,6 +105,19 @@ public class Bill implements Serializable {
 
     public Bill removeProduct(Product product) {
         this.products.remove(product);
+        return this;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Bill user(User user) {
+        this.setUser(user);
         return this;
     }
 

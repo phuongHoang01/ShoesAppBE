@@ -1,5 +1,6 @@
 package com.shoesapp.web.rest;
 
+import com.shoesapp.domain.Bill;
 import com.shoesapp.repository.BillRepository;
 import com.shoesapp.service.BillService;
 import com.shoesapp.service.dto.BillDTO;
@@ -188,5 +189,23 @@ public class BillResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/mobile/bills")
+    public ResponseEntity<List<BillDTO>> getBillsOfLoggedUser(Pageable pageable) {
+        List<BillDTO> bills = billService.getBillsOfLoggedUser();
+        return ResponseEntity.ok().body(bills);
+    }
+
+    @PostMapping("/mobile/bills")
+    public ResponseEntity<BillDTO> createBillByLoggedUser(@Valid @RequestBody BillDTO billDTO) throws URISyntaxException {
+        if (billDTO.getId() != null) {
+            throw new BadRequestAlertException("A new bill cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        BillDTO result = billService.saveByLoggedUser(billDTO);
+        return ResponseEntity
+            .created(new URI("/api/bills/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+            .body(result);
     }
 }

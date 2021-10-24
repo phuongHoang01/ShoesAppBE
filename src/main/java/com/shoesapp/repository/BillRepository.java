@@ -14,6 +14,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface BillRepository extends JpaRepository<Bill, Long> {
+    @Query("select bill from Bill bill where bill.user.login = ?#{principal.username}")
+    List<Bill> findByUserIsCurrentUser();
+
     @Query(
         value = "select distinct bill from Bill bill left join fetch bill.products",
         countQuery = "select count(distinct bill) from Bill bill"

@@ -46,6 +46,8 @@ export const BillDetail = (props: RouteComponentProps<{ id: string }>) => {
                 ))
               : null}
           </dd>
+          <dt>User</dt>
+          <dd>{billEntity.user ? billEntity.user.login : ''}</dd>
         </dl>
         <Button tag={Link} to="/bill" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

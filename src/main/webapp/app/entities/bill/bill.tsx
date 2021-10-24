@@ -107,6 +107,9 @@ export const Bill = (props: RouteComponentProps<{ url: string }>) => {
                 <th className="hand" onClick={sort('totalPrice')}>
                   Total Price <FontAwesomeIcon icon="sort" />
                 </th>
+                <th>
+                  User <FontAwesomeIcon icon="sort" />
+                </th>
                 <th />
               </tr>
             </thead>
@@ -120,6 +123,7 @@ export const Bill = (props: RouteComponentProps<{ url: string }>) => {
                   </td>
                   <td>{bill.createdDate ? <TextFormat type="date" value={bill.createdDate} format={APP_LOCAL_DATE_FORMAT} /> : null}</td>
                   <td>{bill.totalPrice}</td>
+                  <td>{bill.user ? bill.user.login : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${bill.id}`} color="info" size="sm" data-cy="entityDetailsButton">

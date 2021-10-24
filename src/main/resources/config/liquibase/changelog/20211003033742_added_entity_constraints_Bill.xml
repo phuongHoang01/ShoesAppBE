@@ -19,5 +19,11 @@
                                  constraintName="fk_rel_bill__product__product_id"
                                  referencedColumnNames="id"
                                  referencedTableName="product"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="bill"
+                                 constraintName="fk_bill__user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
     </changeSet>
 </databaseChangeLog>

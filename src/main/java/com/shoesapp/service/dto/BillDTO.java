@@ -21,6 +21,8 @@ public class BillDTO implements Serializable {
 
     private Set<ProductDTO> products = new HashSet<>();
 
+    private UserDTO user;
+
     public Long getId() {
         return id;
     }
@@ -53,6 +55,14 @@ public class BillDTO implements Serializable {
         this.products = products;
     }
 
+    public UserDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDTO user) {
+        this.user = user;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -82,6 +92,7 @@ public class BillDTO implements Serializable {
             ", createdDate='" + getCreatedDate() + "'" +
             ", totalPrice=" + getTotalPrice() +
             ", products=" + getProducts() +
+            ", user=" + getUser() +
             "}";
     }
 }
