@@ -4,6 +4,9 @@ import com.shoesapp.domain.Bill;
 import com.shoesapp.repository.BillRepository;
 import com.shoesapp.service.dto.BillDTO;
 import com.shoesapp.service.mapper.BillMapper;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +42,9 @@ public class BillService {
     public BillDTO save(BillDTO billDTO) {
         log.debug("Request to save Bill : {}", billDTO);
         Bill bill = billMapper.toEntity(billDTO);
+        if (bill.getCreatedDate() == null) {
+            bill.createdDate(LocalDate.now());
+        }
         bill = billRepository.save(bill);
         return billMapper.toDto(bill);
     }

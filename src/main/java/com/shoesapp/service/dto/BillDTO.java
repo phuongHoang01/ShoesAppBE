@@ -14,7 +14,6 @@ public class BillDTO implements Serializable {
 
     private Long id;
 
-    @NotNull
     private LocalDate createdDate;
 
     @NotNull

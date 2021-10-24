@@ -1,5 +1,6 @@
 package com.shoesapp.web.rest;
 
+import com.shoesapp.domain.Favorite;
 import com.shoesapp.repository.FavoriteRepository;
 import com.shoesapp.service.FavoriteService;
 import com.shoesapp.service.dto.FavoriteDTO;
@@ -189,5 +190,12 @@ public class FavoriteResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/moblie/favorites")
+    public ResponseEntity<List<FavoriteDTO>> getFavoritesOfLoggedUser(Pageable pageable) {
+        log.debug("REST request to get a page of Favorites");
+        List<FavoriteDTO> favorites = favoriteService.getFavoritesOfLoggedUser();
+        return ResponseEntity.ok().body(favorites);
     }
 }

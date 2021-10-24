@@ -10,6 +10,8 @@ import com.shoesapp.service.mapper.FavoriteMapper;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -114,5 +116,9 @@ public class FavoriteService {
             throw new AuthenticationException("Chưa đăng nhập");
         }
         favoriteRepository.deleteByProductIdAndUserId(productId, loggedUser.get().getId());
+    }
+
+    public List<FavoriteDTO> getFavoritesOfLoggedUser() {
+        return favoriteRepository.findByUserIsCurrentUser().stream().map(favoriteMapper::toDto).collect(Collectors.toList());
     }
 }
